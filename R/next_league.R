@@ -31,7 +31,8 @@ next_league <- function(con){
                 q  = 1:6) %>%
     mutate(md_0 = ifelse(nchar(md) == 1, paste0("0", md), md)) %>%
     rowwise() %>%
-    mutate(id = paste0("ll", ll, "md", md_0, "q", q))
+    mutate(id = paste0("ll", ll, "md", md_0, "q", q)) %>%
+    arrange(ll, md, q)
 
   return(q_ids$id)
 }
