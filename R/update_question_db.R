@@ -34,7 +34,7 @@ update_question_db <- function(type = "next_league"){
       error("invalid question update type")
     }
 
-  # check q_ids for length
+  # check q_ids for length (max 1 league full of questions at a time)
   if(length(q_ids) > 150){
     q_ids <- q_ids[1:150]
   }

@@ -3,12 +3,12 @@
 
 test_that("can get a test page", {
   expect_silent({
-    get_question_page(55, 6, 4)
+    get_matchday_page(55, 6)
   })
 })
 
 test_that("errors if page doesn't exist", {
   expect_error({
-    get_question_page(40, 6, 4)
+    get_matchday_page(40, 6)
   })
 })
