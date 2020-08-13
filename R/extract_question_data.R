@@ -13,7 +13,7 @@ extract_question_data <- function(page){
     rvest::html_nodes(css = "h1.matchday") %>%
     rvest::html_text() %>%
     stringr::str_replace(":.*$", "") %>%
-    as.Date(format = "%b. %d, %Y")
+    as.Date(tryFormats = c("%b. %d, %Y", "%B %d, %Y"))
 
   # question
   question <-
