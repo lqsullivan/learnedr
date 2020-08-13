@@ -54,10 +54,10 @@ ask_questions <- function(user){
   # while continue
   for (i in 1:nrow(my_unanswered)) {
     # pose question
-    cat("\014\nQUESTION\n", q_data$question[i], "\n\n")
+    cat("\014\nQUESTION", q_data$id[i], "\n", q_data$question[i], "\n\n")
     # present supplement (image/sound)
     if (!is.na(q_data$link[i])) {
-      if (sub(".*\\.", "", q_data$link[i]) == "jpg") {
+      if (sub(".*\\.", "", q_data$link[i]) %in% c("jpg", "png", "gif")) {
         # present image
         pic <- jpeg::readJPEG(source = paste0("./question_files/",
                                               sub("/.*/", "", q_data$link[i])),
