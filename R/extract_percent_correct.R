@@ -36,7 +36,8 @@ extract_percent_correct <- function(page){
     `/`(., 100)
 
   pct_correct <-
-    tibble(leagues, values) %>%
+    tibble(group = leagues,
+           pct   = values) %>%
     rbind(c("League", leaguewide), .)
 
   return(pct_correct)
