@@ -40,30 +40,32 @@ extract_question_data <- function(page){
   link <-
     ifelse(identical(link, character(0)), NA, link)
 
-  # some values discontinued as of august 2020 (keeping it for my db)
-  # most common wrong answer
+  # best and most common wrong
   wrongs <-
     page %>%
     rvest::html_nodes(css = "h3, div") %>%
     rvest::html_text() %>%
     stringr::str_replace_all("[\\t]+", "")
 
-  best_wrong <-
+  best_wrong_idx <-
     wrongs %>%
-    grep(pattern = "^\n\nBest Wrong Answers", ignore.case = TRUE, value = TRUE) %>%
-    stringr::str_replace("^\n+.*\n+", "") %>%
-    stringr::str_replace("\n+$", "")
-  best_wrong <-
-    ifelse(identical(best_wrong, character(0)), NA, best_wrong)
+    grepl(pattern = "Best Wrong Answers", ignore.case = TRUE) %>%
+    which() %>%
+    max()
 
-  # far as i know, this is gone
-  most_wrong <-
+  best_wrong <-
+    wrongs[best_wrong_idx + 1] %>%
+    stringr::str_replace_all("\\n", "")
+
+  most_wrong_idx <-
     wrongs %>%
-    grep(pattern = "^\n\nMost Common Wrong Answers", ignore.case = TRUE, value = TRUE) %>%
-    stringr::str_replace("^\n+.*\n+", "") %>%
-    stringr::str_replace("\n+$", "")
+    grepl(pattern = "Most Common Wrong Answer", ignore.case = TRUE) %>%
+    which() %>%
+    max()
+
   most_wrong <-
-    ifelse(identical(most_wrong, character(0)), NA, most_wrong)
+    wrongs[most_wrong_idx + 1] %>%
+    stringr::str_replace_all("\\n", "")
 
   # avg defense
   avg_defense <-
