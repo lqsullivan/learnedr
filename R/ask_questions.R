@@ -54,7 +54,7 @@ ask_questions <- function(user){
   # while continue
   for (i in 1:nrow(my_unanswered)) {
     # pose question
-    cat("\014\nQUESTION", q_data$id[i], "\n", q_data$question[i], "\n\n")
+    cat("\014", q_data$id[i], "\n", q_data$category[i], "\n", q_data$question[i], "\n\n")
     # present supplement (image/sound)
     if (!is.na(q_data$link[i])) {
       if (sub(".*\\.", "", q_data$link[i]) %in% c("jpg", "png", "gif")) {
