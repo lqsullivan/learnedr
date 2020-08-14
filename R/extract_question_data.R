@@ -50,22 +50,28 @@ extract_question_data <- function(page){
   best_wrong_idx <-
     wrongs %>%
     grepl(pattern = "Best Wrong Answers", ignore.case = TRUE) %>%
-    which() %>%
-    max()
+    which()
 
-  best_wrong <-
-    wrongs[best_wrong_idx + 1] %>%
-    stringr::str_replace_all("\\n", "")
+  if (identical(best_wrong_idx, integer(0))) {
+    best_wrong <- NA
+  } else {
+    best_wrong <-
+      wrongs[max(best_wrong_idx) + 1] %>%
+      stringr::str_replace_all("\\n", "")
+  }
 
   most_wrong_idx <-
     wrongs %>%
     grepl(pattern = "Most Common Wrong Answer", ignore.case = TRUE) %>%
-    which() %>%
-    max()
+    which()
 
-  most_wrong <-
-    wrongs[most_wrong_idx + 1] %>%
-    stringr::str_replace_all("\\n", "")
+  if (identical(most_wrong_idx, integer(0))) {
+    most_wrong <- NA
+  } else {
+    most_wrong <-
+      wrongs[max(most_wrong_idx) + 1] %>%
+      stringr::str_replace_all("\\n", "")
+  }
 
   # avg defense
   avg_defense <-
