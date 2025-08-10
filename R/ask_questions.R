@@ -7,10 +7,8 @@
 #' @export
 #'
 #' @examples
-ask_questions <- function(user){
+ask_questions <- function(user, con){
   # get some questions
-  con <- DBI::dbConnect(drv    = RSQLite::SQLite(),
-                        dbname = "H:/projects/stats_projects/learnedr/learned_league.sqlite")
 
   # identify previously answered questions
   # TODO: handle missing or incorrect tables better
@@ -108,6 +106,8 @@ ask_questions <- function(user){
   if (!is.null(answers)) {
     DBI::dbWriteTable(con, "answers", answers, append = TRUE)
   }
+
+  DBI::dbDisconnect(con)
 
   invisible(NULL)
 }

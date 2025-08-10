@@ -15,11 +15,7 @@
 #' * `continuous` (planned, not implemented) pulls the next question as you're answering one in play mode
 #' * `by_id` (planned, not implemented) pulls specific questions by id
 #'
-update_question_db <- function(type = "next_league"){
-  # connect to db
-  con <- DBI::dbConnect(drv    = RSQLite::SQLite(),
-                        dbname = "./learned_league.sqlite")
-
+update_question_db <- function(type = "next_league", con){
   # identify questions to pull
   q_ids <-
     if (type == "next_league") {
