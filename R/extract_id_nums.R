@@ -7,5 +7,5 @@
 #'
 #' @examples
 extract_id_nums <- function(id){
-  stringr::str_sub(id, c(3, 7, 10), c(4, 8, 10))
+  stringr::str_extract_all(id, "\\d+")[[1]]
 }
